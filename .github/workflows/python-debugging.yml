@@ -29,8 +29,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pydevd-pycharm==233.13135.95
+
+    
 
     - name: Lint with flake8
+      if: ${{!env.ACT}}
       run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -39,5 +43,5 @@ jobs:
 
     - name: Run Python script
       run: |
-        python hello.py "${{ github.event.inputs.user }}"
+        python hello2.py "${{ github.event.inputs.user }}"
 
